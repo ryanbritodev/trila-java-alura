@@ -1,2 +1,2 @@
 # trila-java-alura
-Trilha de Estudos da linguagem Java na Alura.
+Trilha de Estudos da Python na Alura.
