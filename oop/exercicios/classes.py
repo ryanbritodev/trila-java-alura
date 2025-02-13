@@ -17,14 +17,32 @@ class Carro:
     def __str__(self):
         return f"{self.modelo}\n{self.cor}\n{self.ano}"
 
+
 class Restaurante:
-    def __init__(self, nome: str, categoria: str, ativo: bool, localizacao: str, data_fundacao: str):
+    def __init__(self, nome: str, categoria: str, ativo: False, localizacao: str, data_fundacao: str):
         self.nome = nome
         self.categoria = categoria
         self.ativo = ativo
         self.localizacao = localizacao
         self.data_fundacao = data_fundacao
 
+    def __str__(self):
+        return f"{self.nome}\n{self.categoria}"
+
+
+class Cliente:
+    def __init__(self, nome: str, idade: int, prato_favorito: str, valor_conta: int):
+        self.nome = nome
+        self.idade = idade
+        self.prato = prato_favorito
+        self.valor = valor_conta
+
+
 
 celtinha = Carro("Chevrolet Celta", "Vermelho", 2015)
+nonna = Restaurante("Nonna Pizza", "Pizzaria", True, "Parque Marajoara, Santo André - SP", "15/08/1987")
+cliente1 = Cliente("João", 27, "Macarrão", 50)
+cliente2 = Cliente("Maria", 18, "Lasanha", 65)
+cliente3 = Cliente("Jorge", 28, "Pizza", 70)
 
+print(nonna)
