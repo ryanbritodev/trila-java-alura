@@ -16,32 +16,44 @@ class Restaurant:
     # self = Refere-se ao objeto que estamos instânciando
     # name, category = Argumentos que devemos passar para instância
     def __init__(self, name, category):
+        # Realizando alterações DIRETAMENTE no construtor (title, upper)
         self._name = name.title()  # Garantindo que todos os nomes das instâncias tenham a letra inicial maiúscula
-        self.category = category.upper()  # Garantindo que todos as categorias das instâncias sejam maiúsculas
-        self._ativo = False  # Atributo privado/protegido, que não deve ser mexido (boa prática, exige criação de método Setter)
+        self._category = category.upper()  # Garantindo que todos as categorias das instâncias sejam maiúsculas
+        self._ativo = False  # Atributo privado/protegido, que não deve ser mexido (boa prática, exige criação de um método Setter, que no caso é nossa Property)
         Restaurant.restaurantes.append(self)
 
     def __str__(self):
         # Podemos colocar qualquer informação de identificação para o objeto
-        return f'{self._name} | {self.category}'
+        return f'{self._name} | {self._category}'
 
+    # Property NECESSÁRIA para controle de acesso
     @property
     def ativo(self):
         return "✅" if self._ativo else "❌"
 
-    @staticmethod
-    def listar_restaurantes():
+    @classmethod
+    def listar_restaurantes(cls):
         print(f"{'Nome do Restaurante'.ljust(25)} | {'Categoria'.ljust(25)} | {'Status'}")
-        for restaurante in Restaurant.restaurantes:
-            print(f'{restaurante.name.ljust(25)} | {restaurante.category.ljust(25)} | {restaurante.ativo}')
+        for restaurante in cls.restaurantes:
+            print(f'{restaurante._name.ljust(25)} | {restaurante._category.ljust(25)} | {restaurante.ativo}')
 
+    def alternar_estado(self):
+        self._ativo = not self._ativo
 
 praca_restaurant = Restaurant('praça', 'Gourmet')
-praca_restaurant.nome = "PraçaV2"
-praca_restaurant.ativo = True
+praca_restaurant.alternar_estado()
+
+# Não podemos realizar nenhuma alteração, pois não estamos nenhum atributo de setter que irá permirtir que possamos atribuir um novo valor (afinal, ele está protegido)
+# praca_restaurant.name = "PraçaV2"
+# praca_restaurant.ativo = True
+
+# Agora sim ✅
+# praca_restaurant._name = "PraçaV2"
+# praca_restaurant._ativo = True
+
 pizza_restaurant = Restaurant('pizza express', 'Italiana')
 
-# Nosso próprio método especial que guardar todos os restaurantes instanciados e mostra na tela
+# Nosso próprio método especial que guarda todos os restaurantes instanciados e mostra na tela
 Restaurant.listar_restaurantes()
 
 # Acessando o objeto
