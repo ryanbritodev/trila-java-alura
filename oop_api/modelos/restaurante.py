@@ -1,4 +1,5 @@
 from oop_api.modelos.avaliacao import Avaliacao
+from .cardapio.item_cardapio import ItemCardapio
 
 
 class Restaurante:
@@ -41,3 +42,32 @@ class Restaurante:
         quantidade_de_notas = len(self._avaliacao)
         media = round(soma_das_notas / quantidade_de_notas, 1)
         return media
+
+    # Métodos repetidos, não é prático
+    # def adicionar_bebida_no_cardapio(self, bebida):
+    #     self._cardapio.append(bebida)
+    #
+    # def adicionar_prato_no_cardapio(self, prato):
+    #     self._cardapio.append(prato)
+
+    def adicionar_no_cardapio(self, item):
+        if isinstance(item, ItemCardapio):
+            self._cardapio.append(item)
+        else:
+            print(f"Erro: {item} não é uma instância de ItemCardapio")
+
+
+    def exibir_cardapio(self):
+        print(f"Cardápio do Restaurante {self._nome}:\n")
+        # Iterando sobre os itens do cardápio daquele restaurante, e usando a função enumerate para devolver o índice
+        for i, item in enumerate(self._cardapio, start=1): # Começar no 1
+            # Ao passar o nome da instância e o atributo, a função verifica se ela existe ou não
+            if hasattr(item, 'descricao'):
+                mensagem_prato = f"{i}. Nome: {item._nome} | Preço: R${item._preco} | Descrição: {item.descricao}"
+                print(mensagem_prato)
+            elif hasattr(item, 'tamanho'):
+                mensagem_bebida = f"{i}. Nome: {item._nome} | Preço: R${item._preco} | Tamanho: {item.tamanho}"
+                print(mensagem_bebida)
+            else:
+                mensagem = f"{i}. Nome: {item._nome} | Preço: R${item._preco} | Tamanho: {item._tamanho} | Descrição: {item._descricao}"
+                print(mensagem)
